@@ -148,6 +148,7 @@ namespace Locadora_Carro_MySql
             this.listCliente.Size = new System.Drawing.Size(402, 189);
             this.listCliente.TabIndex = 11;
             this.listCliente.UseCompatibleStateImageBehavior = false;
+            this.listCliente.SelectedIndexChanged += new System.EventHandler(this.listCliente_SelectedIndexChanged);
             // 
             // button3
             // 

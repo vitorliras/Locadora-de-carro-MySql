@@ -15,6 +15,10 @@ namespace Locadora_Carro_MySql
     {
         MySqlConnection conexao;
         string data_source = "Server=localhost;user id=root;password=root;DATABASE=Locadora";
+
+        //tipo anulado
+        private int ?idClienteSeleciona = null;
+
         public Form1()
         {
             InitializeComponent();
@@ -209,6 +213,26 @@ namespace Locadora_Carro_MySql
             {
                 conexao.Close();
             }
+        }
+
+        private void listCliente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //quando selecionado um ListViewItem, o mesmo vai pra uma lista,
+            //logo deve-se tratar essa lista, para ver qual ietm foi selecionado 
+            ListView.SelectedListViewItemCollection itensSelecionados = listCliente.SelectedItems;
+           
+
+            foreach (ListViewItem item in itensSelecionados)
+            {
+               idClienteSeleciona = int.Parse(item.SubItems[0].Text);
+
+                txtNome.Text = item.SubItems[1].Text; //subitems é cada coluna de uma lista
+                txtCPF.Text = item.SubItems[2].Text;
+                txtTelefone.Text = item.SubItems[3].Text;
+                txtidVeiculo.Text = item.SubItems[4].Text;
+
+            }
+
         }
     }
 }
