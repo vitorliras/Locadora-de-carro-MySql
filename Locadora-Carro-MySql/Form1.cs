@@ -264,5 +264,14 @@ namespace Locadora_Carro_MySql
             }
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            txtNome.Clear();
+            txtCPF.Clear();
+            txtTelefone.Clear();
+            txtidVeiculo.Clear();
+            carregarClientes();
+        }
     }
 }

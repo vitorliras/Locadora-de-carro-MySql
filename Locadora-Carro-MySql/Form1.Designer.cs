@@ -44,6 +44,7 @@ namespace Locadora_Carro_MySql
             this.txtBuscarCliente = new System.Windows.Forms.TextBox();
             this.listCliente = new System.Windows.Forms.ListView();
             this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -160,11 +161,22 @@ namespace Locadora_Carro_MySql
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(116, 230);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 14;
+            this.button2.Text = "Novo";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 319);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.listCliente);
             this.Controls.Add(this.txtBuscarCliente);
@@ -202,6 +214,7 @@ namespace Locadora_Carro_MySql
         private System.Windows.Forms.TextBox txtBuscarCliente;
         private System.Windows.Forms.ListView listCliente;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
     }
 }
 
