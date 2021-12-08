@@ -43,9 +43,13 @@ namespace Locadora_Carro_MySql
             this.label4 = new System.Windows.Forms.Label();
             this.txtBuscarCliente = new System.Windows.Forms.TextBox();
             this.listCliente = new System.Windows.Forms.ListView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Nome
@@ -97,22 +101,22 @@ namespace Locadora_Carro_MySql
             this.txtTelefone.Size = new System.Drawing.Size(201, 23);
             this.txtTelefone.TabIndex = 5;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 230);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Salvar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // txtidVeiculo
             // 
             this.txtidVeiculo.Location = new System.Drawing.Point(12, 191);
             this.txtidVeiculo.Name = "txtidVeiculo";
             this.txtidVeiculo.Size = new System.Drawing.Size(201, 23);
-            this.txtidVeiculo.TabIndex = 8;
+            this.txtidVeiculo.TabIndex = 6;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 230);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Salvar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -142,6 +146,7 @@ namespace Locadora_Carro_MySql
             // listCliente
             // 
             this.listCliente.AllowColumnReorder = true;
+            this.listCliente.ContextMenuStrip = this.contextMenuStrip1;
             this.listCliente.HideSelection = false;
             this.listCliente.Location = new System.Drawing.Point(234, 64);
             this.listCliente.MultiSelect = false;
@@ -150,6 +155,20 @@ namespace Locadora_Carro_MySql
             this.listCliente.TabIndex = 11;
             this.listCliente.UseCompatibleStateImageBehavior = false;
             this.listCliente.SelectedIndexChanged += new System.EventHandler(this.listCliente_SelectedIndexChanged);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(110, 26);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(109, 22);
+            this.toolStripMenuItem1.Text = "Excluir";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // button3
             // 
@@ -171,11 +190,22 @@ namespace Locadora_Carro_MySql
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(560, 275);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 15;
+            this.button4.Text = "Excluir";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 319);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.listCliente);
@@ -193,6 +223,7 @@ namespace Locadora_Carro_MySql
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -206,15 +237,18 @@ namespace Locadora_Carro_MySql
         private System.Windows.Forms.TextBox txtNome;
         private System.Windows.Forms.TextBox txtCPF;
         private System.Windows.Forms.TextBox txtTelefone;
+        private System.Windows.Forms.TextBox txtidVeiculo;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.BindingSource bindingSource1;
-        private System.Windows.Forms.TextBox txtidVeiculo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtBuscarCliente;
         private System.Windows.Forms.ListView listCliente;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.Button button4;
     }
 }
 

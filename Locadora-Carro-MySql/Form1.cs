@@ -267,11 +267,126 @@ namespace Locadora_Carro_MySql
 
         private void button2_Click(object sender, EventArgs e)
         {
-            txtNome.Clear();
-            txtCPF.Clear();
-            txtTelefone.Clear();
-            txtidVeiculo.Clear();
+            idClienteSeleciona = null;
+            txtCPF.Text = "";
+            txtNome.Text = "";
+            txtTelefone.Text = "";
+            txtidVeiculo.Text = "";
             carregarClientes();
+        }
+
+        private void Clear()
+        {
+            idClienteSeleciona = null;
+            txtCPF.Text = "";
+            txtNome.Text = "";
+            txtTelefone.Text = "";
+            txtidVeiculo.Text = "";
+            carregarClientes();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Menssagem de aviso
+                DialogResult conf = MessageBox.Show("Tem certeza que deseja excluir o registro?",
+                    "ops, tem certeza?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (conf == DialogResult.Yes)
+                {
+                    //Excluir contato
+                    conexao = new MySqlConnection(data_source);
+
+                    conexao.Open();
+
+                    MySqlCommand cmd = new MySqlCommand();
+                    cmd.Connection = conexao;
+
+                    cmd.Prepare();
+
+                    cmd.CommandText = "DELETE FROM cliente WHERE id = @id ";
+
+                    cmd.Parameters.AddWithValue("@id", idClienteSeleciona);
+
+                    cmd.ExecuteNonQuery();
+
+
+                    MessageBox.Show("Contato exluido");
+                    Clear();
+                    carregarClientes();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Erro " + ex.Number + " ocorreu: " + ex.Message,
+                                "Erro",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocorreu: " + ex.Message,
+                                "Erro",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Menssagem de aviso
+                DialogResult conf = MessageBox.Show("Tem certeza que deseja excluir o registro?",
+                    "ops, tem certeza?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (conf == DialogResult.Yes)
+                {
+                    //Excluir contato
+                    conexao = new MySqlConnection(data_source);
+
+                    conexao.Open();
+
+                    MySqlCommand cmd = new MySqlCommand();
+                    cmd.Connection = conexao;
+
+                    cmd.Prepare();
+
+                    cmd.CommandText = "DELETE FROM cliente WHERE id = @id ";
+
+                    cmd.Parameters.AddWithValue("@id", idClienteSeleciona);
+
+                    cmd.ExecuteNonQuery();
+
+
+                    MessageBox.Show("Contato exluido");
+                    Clear();
+                    carregarClientes();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Erro " + ex.Number + " ocorreu: " + ex.Message,
+                                "Erro",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocorreu: " + ex.Message,
+                                "Erro",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
         }
     }
 }
