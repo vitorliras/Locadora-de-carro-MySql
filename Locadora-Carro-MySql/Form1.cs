@@ -92,8 +92,8 @@ namespace Locadora_Carro_MySql
             //adicionando as colunas da lista cliente
             listCliente.Columns.Add("ID ", 50, HorizontalAlignment.Left);
             listCliente.Columns.Add("Nome ", 80, HorizontalAlignment.Left);
-            listCliente.Columns.Add("CPF ", 60, HorizontalAlignment.Left);
-            listCliente.Columns.Add("Telefone ", 60, HorizontalAlignment.Left);
+            listCliente.Columns.Add("CPF ", 100, HorizontalAlignment.Left);
+            listCliente.Columns.Add("Telefone ", 100, HorizontalAlignment.Left);
             listCliente.Columns.Add("ID veiculo ", 60, HorizontalAlignment.Left);
         }
 
@@ -106,6 +106,7 @@ namespace Locadora_Carro_MySql
         {
             try
             {
+
                 //conectando com Preparing Statements
                 conexao = new MySqlConnection(data_source);
 
@@ -117,25 +118,54 @@ namespace Locadora_Carro_MySql
                 //definindo qual vai ser a conexao
                 cmd.Connection = conexao;
 
-                cmd.Prepare(); //preparo do comando de execução
+                if (idClienteSeleciona == null)
+                {
+                    //INSERT
 
-                cmd.CommandText = "INSERT INTO cliente(nome,cpf,telefone,fk_idveiculo) " + //comando do SQL que vai ser executados
-                                          " VALUES " +
-                                          "(@nome, @cpf, @telefone, @fk_idveiculo) ";
+                    cmd.Prepare(); //preparo do comando de execução
 
-                cmd.Parameters.AddWithValue("@nome", txtNome.Text); // criando paramentro e adicionando valores neles
-                cmd.Parameters.AddWithValue("@cpf", txtCPF.Text);
-                cmd.Parameters.AddWithValue("@telefone", txtTelefone.Text);
-                cmd.Parameters.AddWithValue("@fk_idveiculo", txtidVeiculo.Text);
+                    cmd.CommandText = "INSERT INTO cliente(nome,cpf,telefone,fk_idveiculo) " + //comando do SQL que vai ser executados
+                                              " VALUES " +
+                                              "(@nome, @cpf, @telefone, @fk_idveiculo) ";
 
-                cmd.ExecuteNonQuery(); //execução do comando
+                    cmd.Parameters.AddWithValue("@nome", txtNome.Text); // criando paramentro e adicionando valores neles
+                    cmd.Parameters.AddWithValue("@cpf", txtCPF.Text);
+                    cmd.Parameters.AddWithValue("@telefone", txtTelefone.Text);
+                    cmd.Parameters.AddWithValue("@fk_idveiculo", txtidVeiculo.Text);
 
-                MessageBox.Show("Contato Inserido");
-                txtNome.Clear();
-                txtCPF.Clear();
-                txtTelefone.Clear();
-                txtidVeiculo.Clear();
-                carregarClientes();
+                    cmd.ExecuteNonQuery(); //execução do comando
+
+                    MessageBox.Show("Contato Inserido");
+                    txtNome.Clear();
+                    txtCPF.Clear();
+                    txtTelefone.Clear();
+                    txtidVeiculo.Clear();
+                    carregarClientes();
+                }
+                else
+                {
+                    //UPDATE
+                    
+                    cmd.Prepare(); 
+
+                    cmd.CommandText = "UPDATE cliente SET nome = @nome, cpf = @cpf, telefone = @telefone, fk_idveiculo = @fk_idveiculo " +
+                                      " WHERE id = @id ";
+
+                    cmd.Parameters.AddWithValue("@nome", txtNome.Text); 
+                    cmd.Parameters.AddWithValue("@cpf", txtCPF.Text);
+                    cmd.Parameters.AddWithValue("@telefone", txtTelefone.Text);
+                    cmd.Parameters.AddWithValue("@fk_idveiculo", txtidVeiculo.Text);
+                    cmd.Parameters.AddWithValue("@id", idClienteSeleciona);
+
+                    cmd.ExecuteNonQuery(); 
+
+                    MessageBox.Show("Contato Atualizado!");
+                    txtNome.Clear();
+                    txtCPF.Clear();
+                    txtTelefone.Clear();
+                    txtidVeiculo.Clear();
+                    carregarClientes();
+                }
             }
             catch (MySqlException ex)
             {
