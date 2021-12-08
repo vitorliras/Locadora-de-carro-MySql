@@ -19,9 +19,61 @@ namespace Locadora_Carro_MySql
         {
             InitializeComponent();
             ConfiguracaoListaClientes();
+            carregarClientes();
 
 
-            
+
+        }
+
+        private void carregarClientes()
+        {
+            try
+            {
+                conexao = new MySqlConnection(data_source);
+
+                conexao.Open();
+
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = conexao;
+                cmd.Prepare();
+                cmd.CommandText = "SELECT * FROM cliente ORDER BY id DESC";
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                listCliente.Items.Clear();
+
+                while (reader.Read())
+                {
+                    string[] row =
+                    {
+                        reader.GetString(0),
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        reader.GetString(3),
+                        reader.GetString(4)
+                    };
+
+                    listCliente.Items.Add(new ListViewItem(row));
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Erro " + ex.Number + " ocorreu: " + ex.Message,
+                                "Erro",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocorreu: " + ex.Message,
+                                "Erro",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
         }
 
         private void ConfiguracaoListaClientes()
@@ -79,6 +131,7 @@ namespace Locadora_Carro_MySql
                 txtCPF.Clear();
                 txtTelefone.Clear();
                 txtidVeiculo.Clear();
+                carregarClientes();
             }
             catch (MySqlException ex)
             {

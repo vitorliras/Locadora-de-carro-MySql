@@ -135,21 +135,23 @@ namespace Locadora_Carro_MySql
             // 
             this.txtBuscarCliente.Location = new System.Drawing.Point(234, 27);
             this.txtBuscarCliente.Name = "txtBuscarCliente";
-            this.txtBuscarCliente.Size = new System.Drawing.Size(245, 23);
+            this.txtBuscarCliente.Size = new System.Drawing.Size(294, 23);
             this.txtBuscarCliente.TabIndex = 10;
             // 
             // listCliente
             // 
+            this.listCliente.AllowColumnReorder = true;
             this.listCliente.HideSelection = false;
             this.listCliente.Location = new System.Drawing.Point(234, 64);
+            this.listCliente.MultiSelect = false;
             this.listCliente.Name = "listCliente";
-            this.listCliente.Size = new System.Drawing.Size(332, 189);
+            this.listCliente.Size = new System.Drawing.Size(402, 189);
             this.listCliente.TabIndex = 11;
             this.listCliente.UseCompatibleStateImageBehavior = false;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(491, 26);
+            this.button3.Location = new System.Drawing.Point(561, 27);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 13;
@@ -161,7 +163,7 @@ namespace Locadora_Carro_MySql
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(590, 319);
+            this.ClientSize = new System.Drawing.Size(648, 319);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.listCliente);
             this.Controls.Add(this.txtBuscarCliente);
