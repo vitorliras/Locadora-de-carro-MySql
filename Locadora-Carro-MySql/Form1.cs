@@ -18,6 +18,27 @@ namespace Locadora_Carro_MySql
         public Form1()
         {
             InitializeComponent();
+            ConfiguracaoListaClientes();
+
+
+            
+        }
+
+        private void ConfiguracaoListaClientes()
+        {
+            //configurando as colunas
+            listCliente.View = View.Details; // forma de mostra os elementos na tela
+            listCliente.LabelEdit = true;  
+            listCliente.AllowColumnReorder = true;
+            listCliente.FullRowSelect = true;
+            listCliente.GridLines = true;
+
+            //adicionando as colunas da lista cliente
+            listCliente.Columns.Add("ID ", 50, HorizontalAlignment.Left);
+            listCliente.Columns.Add("Nome ", 80, HorizontalAlignment.Left);
+            listCliente.Columns.Add("CPF ", 60, HorizontalAlignment.Left);
+            listCliente.Columns.Add("Telefone ", 60, HorizontalAlignment.Left);
+            listCliente.Columns.Add("ID veiculo ", 60, HorizontalAlignment.Left);
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -78,6 +99,63 @@ namespace Locadora_Carro_MySql
                 conexao.Close();
             }
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                conexao = new MySqlConnection(data_source);
+
+                conexao.Open();
+
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = conexao;
+
+                cmd.Prepare();
+
+                cmd.CommandText = "SELECT * FROM cliente WHERE nome LIKE @b OR cpf LIKE @b";
+
+                cmd.Parameters.AddWithValue("@b", "%" + txtBuscarCliente.Text + "%"); //usando o % para buscar qualuqer caracter
+
+                MySqlDataReader reader = cmd.ExecuteReader();  //fazendo um leitor, prara recuperar os dados existentes no mysql
+
+                listCliente.Items.Clear(); //limpando a list, antes de executar
+
+                //Forma de pecorrer todos os resultados do banco
+                while (reader.Read())//reader é o leitor de dados e read é o metodo que ler cada um das linhas, caso n tiver, o while retorna false
+                {
+                    string[] row = // vetor prar organizar as linhas na lista
+                    {
+                        reader.GetString(0), //retorna o campo id
+                        reader.GetString(1), //nome
+                        reader.GetString(2), //cpf
+                        reader.GetString(3), //telefone
+                        reader.GetString(4)  //fkidveiculo
+                    };
+
+                    listCliente.Items.Add(new ListViewItem(row)); //abastecendo cada linha
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Erro " + ex.Number + " ocorreu: " + ex.Message,
+                                "Erro",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocorreu: " + ex.Message,
+                                "Erro",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
         }
     }
 }
