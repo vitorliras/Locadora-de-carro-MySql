@@ -11,4 +11,16 @@
     <PackageReference Include="MySql.Data" Version="8.0.27" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Form1 - Cópia %282%29.resx">
+      <DependentUpon>Form1.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Form1 - Cópia - Cópia.resx">
+      <DependentUpon>Form1 - Cópia.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Form1 - Cópia.resx">
+      <DependentUpon>Form1.resx</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

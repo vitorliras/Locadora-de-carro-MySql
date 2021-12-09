@@ -18,17 +18,18 @@ namespace Locadora_Carro_MySql
 
         //tipo anulado
         private int ?idClienteSeleciona = null;
+        private int ?idVeiculoSeleciona = null;
 
         public Form1()
         {
             InitializeComponent();
-            ConfiguracaoListaClientes();
+            ConfiguracaoListas();
             carregarClientes();
-
-
+            carregarVeiculo();
 
         }
 
+        //************ Cliente **************
         private void carregarClientes()
         {
             try
@@ -80,7 +81,7 @@ namespace Locadora_Carro_MySql
             }
         }
 
-        private void ConfiguracaoListaClientes()
+        private void ConfiguracaoListas()
         {
             //configurando as colunas
             listCliente.View = View.Details; // forma de mostra os elementos na tela
@@ -95,6 +96,21 @@ namespace Locadora_Carro_MySql
             listCliente.Columns.Add("CPF ", 100, HorizontalAlignment.Left);
             listCliente.Columns.Add("Telefone ", 100, HorizontalAlignment.Left);
             listCliente.Columns.Add("ID veiculo ", 60, HorizontalAlignment.Left);
+
+
+
+            listaVeiculo.View = View.Details;
+            listaVeiculo.LabelEdit = true;
+            listaVeiculo.AllowColumnReorder = true;
+            listaVeiculo.FullRowSelect = true;
+            listaVeiculo.GridLines = true;
+
+            listaVeiculo.Columns.Add("ID ", 50, HorizontalAlignment.Left);
+            listaVeiculo.Columns.Add("marca ", 110, HorizontalAlignment.Left);
+            listaVeiculo.Columns.Add("modelo ", 110, HorizontalAlignment.Left);
+
+            
+            
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -283,6 +299,10 @@ namespace Locadora_Carro_MySql
             txtTelefone.Text = "";
             txtidVeiculo.Text = "";
             carregarClientes();
+            idVeiculoSeleciona = null;
+            txtMarca.Text = "";
+            txtModelo.Text = "";
+            carregarVeiculo();
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -386,6 +406,208 @@ namespace Locadora_Carro_MySql
             finally
             {
                 conexao.Close();
+            }
+        }
+
+        //************ Veiculo **************
+        private void carregarVeiculo()
+        {
+            try
+            {
+                conexao = new MySqlConnection(data_source);
+
+                conexao.Open();
+
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = conexao;
+                cmd.Prepare();
+                cmd.CommandText = "SELECT * FROM veiculo ORDER BY marca";
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                listaVeiculo.Items.Clear();
+
+                while (reader.Read())
+                {
+                    string[] row =
+                    {
+                        reader.GetString(0),
+                        reader.GetString(1),
+                        reader.GetString(2)
+                    };
+
+                    listaVeiculo.Items.Add(new ListViewItem(row));
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Erro " + ex.Number + " ocorreu: " + ex.Message,
+                                "Erro",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocorreu: " + ex.Message,
+                                "Erro",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                
+                conexao = new MySqlConnection(data_source);
+
+                conexao.Open();
+
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = conexao;
+
+                if (idVeiculoSeleciona == null)
+                {
+                    //INSERT
+
+                    cmd.Prepare(); 
+
+                    cmd.CommandText = "INSERT INTO veiculo(marca, modelo) " + 
+                                              " VALUES " +
+                                              "(@marca, @modelo) ";
+
+                    cmd.Parameters.AddWithValue("@marca", txtMarca.Text); 
+                    cmd.Parameters.AddWithValue("@modelo", txtModelo.Text);
+                    
+
+                    cmd.ExecuteNonQuery(); 
+
+                    MessageBox.Show("Veiculo Inserido");
+                    txtModelo.Clear();
+                    txtMarca.Clear();
+                    carregarVeiculo();
+                }
+                else
+                {
+                    //UPDATE
+
+                    cmd.Prepare();
+
+                    cmd.CommandText = "UPDATE veiculo SET marca = @marca, modelo = @modelo " +
+                                      " WHERE idVeiculo = @id ";
+
+                    cmd.Parameters.AddWithValue("@marca", txtMarca.Text);
+                    cmd.Parameters.AddWithValue("@modelo", txtModelo.Text);
+                    cmd.Parameters.AddWithValue("@id", idVeiculoSeleciona);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("veiculo Atualizado!");
+                    txtModelo.Clear();
+                    txtMarca.Clear();
+                    carregarVeiculo();
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Erro " + ex.Number + " ocorreu: " + ex.Message,
+                                "Erro",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocorreu: " + ex.Message,
+                                "Erro",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                conexao = new MySqlConnection(data_source);
+
+                conexao.Open();
+
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = conexao;
+
+                cmd.Prepare();
+
+                cmd.CommandText = "SELECT * FROM veiculo WHERE marca LIKE @b OR modelo LIKE @b or idVeiculo LIKE @b";
+
+                cmd.Parameters.AddWithValue("@b", "%" + txtBuscarVeiculo.Text + "%");
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                listaVeiculo.Items.Clear();
+
+                
+                while (reader.Read())
+                {
+                    string[] row = 
+                    {
+                        reader.GetString(0), 
+                        reader.GetString(1), 
+                        reader.GetString(2), 
+                        
+                    };
+
+                    listaVeiculo.Items.Add(new ListViewItem(row));
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Erro " + ex.Number + " ocorreu: " + ex.Message,
+                                "Erro",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocorreu: " + ex.Message,
+                                "Erro",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conexao.Close();
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            idVeiculoSeleciona = null;
+            txtMarca.Text = "";
+            txtModelo.Text = "";
+            carregarVeiculo();
+        }
+
+        private void listaVeiculo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection itensSelecionados = listaVeiculo.SelectedItems;
+
+
+            foreach (ListViewItem item in itensSelecionados)
+            {
+                idVeiculoSeleciona = int.Parse(item.SubItems[0].Text);
+
+                txtMarca.Text = item.SubItems[1].Text; 
+                txtModelo.Text = item.SubItems[2].Text;
+
             }
         }
     }

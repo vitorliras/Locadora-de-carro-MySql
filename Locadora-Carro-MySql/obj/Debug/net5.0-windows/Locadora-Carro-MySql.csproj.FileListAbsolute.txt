@@ -25,3 +25,6 @@ C:\Users\Vitor\source\repos\Locadora-Carro-MySql\Locadora-Carro-MySql\obj\Debug\
 C:\Users\Vitor\source\repos\Locadora-Carro-MySql\Locadora-Carro-MySql\obj\Debug\net5.0-windows\ref\Locadora-Carro-MySql.dll
 C:\Users\Vitor\source\repos\Locadora-Carro-MySql\Locadora-Carro-MySql\obj\Debug\net5.0-windows\Locadora-Carro-MySql.pdb
 C:\Users\Vitor\source\repos\Locadora-Carro-MySql\Locadora-Carro-MySql\obj\Debug\net5.0-windows\Locadora-Carro-MySql.genruntimeconfig.cache
+C:\Users\Vitor\source\repos\Locadora-Carro-MySql\Locadora-Carro-MySql\obj\Debug\net5.0-windows\Locadora_Carro_MySql.Form1 - Cópia (2).resources
+C:\Users\Vitor\source\repos\Locadora-Carro-MySql\Locadora-Carro-MySql\obj\Debug\net5.0-windows\Locadora_Carro_MySql.Form1 - Cópia - Cópia.resources
+C:\Users\Vitor\source\repos\Locadora-Carro-MySql\Locadora-Carro-MySql\obj\Debug\net5.0-windows\Locadora_Carro_MySql.Form1 - Cópia.resources
